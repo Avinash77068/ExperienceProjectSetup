@@ -1,25 +1,21 @@
 import { useState } from "react";
-import {
-  FaHome,
-  FaPenNib,
-  FaHeart,
-  FaUser,
-  FaList,
-} from "react-icons/fa";
+import { FaHome, FaPenNib, FaHeart, FaUser, FaList } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 
-const Sidebar = ({ isOpen }) => {
-  const {isAuthenticated} = useAuth();
+const Sidebar = ({ isOpen, toggle }) => {
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
       {/* Sidebar */}
       <aside
         className={`fixed md:static top-0 left-0 h-full bg-linear-to-b from-purple-700 via-pink-600 to-red-500 text-white w-64 p-5 transition-transform duration-300 z-50
-        ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Logo */}
-        <div className="text-2xl font-bold mb-8 cursor-pointer">✍️ Shayari</div>
+        <div className="text-xl mb-8 font-bold cursor-pointer" onClick={toggle}>
+          ✍️ Shayari
+        </div>
 
         {/* Menu */}
         <ul className="space-y-4 text-sm font-medium">
