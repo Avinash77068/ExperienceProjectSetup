@@ -8,7 +8,7 @@ const Navbar = ({ isOpen, toggle }) => {
    const { isAuthenticated } = useAuth();
 
   return (
-    <nav className="bg-gradient-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
+    <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-end">
         {/* Logo */}
         

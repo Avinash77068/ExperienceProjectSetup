@@ -4,7 +4,7 @@ import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 
 const SignUp = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-600 via-purple-600 to-pink-500">
       <div className="bg-white w-[380px] p-8 rounded-2xl shadow-2xl">
 
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">

@@ -15,7 +15,7 @@ const Sidebar = ({ isOpen }) => {
     <>
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 left-0 h-full bg-gradient-to-b from-purple-700 via-pink-600 to-red-500 text-white w-64 p-5 transition-transform duration-300 z-50
+        className={`fixed md:static top-0 left-0 h-full bg-linear-to-b from-purple-700 via-pink-600 to-red-500 text-white w-64 p-5 transition-transform duration-300 z-50
         ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
         {/* Logo */}
