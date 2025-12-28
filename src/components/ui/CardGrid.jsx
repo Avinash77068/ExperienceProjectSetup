@@ -27,7 +27,7 @@ const CardGrid = () => {
               </span>
             </div>
           }
-          onClick={() => navigate(`/home/shayari/${index}`)}
+          onClick={() => navigate(`/home/shayari/${index+1}`)}
         >
           {/* Image */}
           <div className="relative mb-3">

@@ -1,63 +1,80 @@
-
 import { useIdorRoute } from "../../hooks/useIdorRoute";
+import { sampleShayaris } from "../../constant/data/shayri/shayridata";
+import { FaHeart, FaCommentAlt, FaShareAlt } from "react-icons/fa";
 
-const ShayariDetail = ({ title, content, image }) => {
-
+const ShayariDetail = () => {
   const { id } = useIdorRoute();
-  console.log(id);
+  const shayari = sampleShayaris.find((s) => s.id == id);
+  if (!shayari) return null;
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
-      {/* Image */}
-      {image && (
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-64 object-cover rounded-lg mb-4"
-        />
-      )}
+    <div className="flex flex-col sm:flex-row gap-4 mx-auto  sm:px-4">
+      {/* Card */}
+      <div
+        className="relative rounded-2xl shadow-xl overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `url(${shayari.image})` }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
-      {/* Title */}
-      <h2 className="text-2xl font-bold mb-2 text-purple-700">{title}</h2>
+        {/* Content */}
+        <div className="relative p-6 md:p-8 text-white">
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl font-bold mb-4">
+            {shayari.title}
+          </h1>
 
-      {/* Content */}
-      <p className="text-gray-800 whitespace-pre-line mb-4">{content}</p>
+          {/* Shayari */}
+          <p className="text-lg leading-relaxed whitespace-pre-line mb-6 text-white/90">
+            {shayari.content}
+          </p>
 
-      {/* Actions */}
-      <div className="flex items-center gap-6 mb-4">
-        <div className="flex items-center gap-2 text-red-500 cursor-pointer">
-          ❤️ <span>120</span>
-        </div>
+          {/* Actions */}
+          <div className="flex items-center gap-8 border-y border-white/20 py-4 mb-6">
+            <button className="flex items-center gap-2 hover:text-red-400 transition">
+              <FaHeart />
+              <span>{shayari.likes}</span>
+            </button>
 
-        <div className="flex items-center gap-2 text-gray-600">
-          💬 <span>15</span>
-        </div>
+            <div className="flex items-center gap-2">
+              <FaCommentAlt />
+              <span>{shayari.comments.length}</span>
+            </div>
 
-        <div className="flex items-center gap-2 text-gray-600 hover:text-purple-700 transition cursor-pointer">
-          🔗 Share
+            <button className="flex items-center gap-2 hover:text-purple-300 transition">
+              <FaShareAlt />
+              <span>Share</span>
+            </button>
+          </div>
+
+          {/* Comment Box */}
+          <div className="mb-8">
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              className="w-full rounded-xl px-4 py-3 text-gray-800 border border-white bg-white focus:outline-none focus:ring-2 focus:ring-purple-500focus:border-white"            />
+            <button className="mt-3 cursor-pointer bg-purple-600 hover:bg-purple-700  px-6 py-2 rounded-xl transition">
+              Post Comment
+            </button>
+          </div>
+
+          {/* Comments */}
         </div>
       </div>
+      <div className="flex flex-col gap-4">
+        <h3 className="text-lg text-black font-semibold mb-4">Comments</h3>
 
-      {/* Comment Input */}
-      <div className="flex flex-col gap-2">
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          className="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <button className="bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800 transition">
-          Comment
-        </button>
+        <div className="space-y-4">
+          {shayari.comments.map((comment, index) => (
+            <div
+              key={index}
+              className="bg-white/10 backdrop-blur rounded-xl p-4"
+            >
+              <p className="font-semibold text-black">{comment.user}</p>
+              <p className="text-black mt-1">{comment.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
-
-      {/* Comment List */}
-      {/* <div className="mt-4">
-        <div className="border-b border-gray-200 py-2 text-gray-700">
-          This is a sample comment.
-        </div>
-        <div className="border-b border-gray-200 py-2 text-gray-700">
-          Another comment example.
-        </div>
-      </div> */}
     </div>
   );
 };
