@@ -2,28 +2,22 @@ import { ReactNode } from "react";
 
 const ShayariCard = ({
   title,
-  subtitle,
-  footer,
   children,
+  footer,
   className = "",
   onClick,
 }) => {
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-5 ${className}`}
+      className={`bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5 cursor-pointer ${className}`}
     >
-      {/* Header */}
-      {(title || subtitle) && (
-        <div className="mb-3">
-          {title && (
-            <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
-          )}
-          {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
-        </div>
+      {/* Title */}
+      {title && (
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
       )}
 
-      {/* Body */}
+      {/* Body (Fully Custom UI from Outside) */}
       <div className="text-gray-700">{children}</div>
 
       {/* Footer */}
@@ -33,4 +27,5 @@ const ShayariCard = ({
     </div>
   );
 };
+
 export default ShayariCard;

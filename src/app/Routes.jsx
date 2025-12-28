@@ -4,7 +4,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import AuthDashboard from "../components/auth/layout/AuthDashboard";
-import WriteShayari from "../components/ui/WriteShayari";
+import ShayariDetail from "../components/ui/ShayriDetails";
 
 export default function AppRoutes() {
   return (
@@ -17,7 +17,7 @@ export default function AppRoutes() {
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<DashboardLayout />}>
-          <Route path="write" element={<WriteShayari />} />
+          <Route path="shayari/:id" element={<ShayariDetail />} />
         </Route>
       </Route>
     </Routes>
