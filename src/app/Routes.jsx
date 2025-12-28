@@ -12,12 +12,14 @@ export default function AppRoutes() {
       {/* Public Routes */}
       <Route element={<PublicRoute />}>
         <Route path="/" element={<AuthDashboard />} />
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Route>
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<DashboardLayout />}>
           <Route path="shayari/:id" element={<ShayariDetail />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Route>
       </Route>
     </Routes>
