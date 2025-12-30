@@ -7,7 +7,7 @@ const ShayariDetail = () => {
   const shayari = sampleShayaris.find((s) => s.id == id);
   if (!shayari) return null;
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mx-auto  sm:px-4">
+    <div className="flex flex-col p-4 sm:flex-row gap-4 mx-auto">
       {/* Card */}
       <div
         className="relative rounded-2xl shadow-xl overflow-hidden bg-cover bg-center"

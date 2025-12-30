@@ -1,7 +1,22 @@
 // src/components/Auth/Login.tsx
 import { FaUser, FaLock } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { login } from "../../../services/authService/index.js";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    const payload = {
+      email: username,
+      password,
+    };
+    dispatch(login(payload));
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-600 via-pink-500 to-red-400">
       <div className="bg-white w-[360px] p-8 rounded-2xl shadow-2xl">
@@ -17,6 +32,8 @@ const Login = () => {
           <input
             type="text"
             placeholder="Username or Email"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
@@ -26,11 +43,16 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full pl-10 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
-        <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition">
+        <button
+          onClick={handleLogin}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition"
+        >
           Login
         </button>
 
