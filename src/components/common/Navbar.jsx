@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../store/thunks/authThunks";
 
 const Navbar = ({ isOpen, toggle }) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openProfile, setOpenProfile] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  // demo username (future me backend se aayega)
   const userEmail = user?.email;
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/", { replace: true });
+  };
 
   return (
     <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
@@ -68,7 +75,7 @@ const Navbar = ({ isOpen, toggle }) => {
                   </Link>
 
                   <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 transition"
                   >
                     Logout
