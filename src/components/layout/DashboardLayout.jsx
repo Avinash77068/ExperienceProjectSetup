@@ -13,7 +13,7 @@ export default function DashboardLayout() {
   return (
     <div className="flex h-screen w-full">
       {isOpen && <Sidebar isOpen={isOpen} toggle={toggle} />}
-      <div className={`flex flex-col ${isOpen ? "flex-1" : "w-full"} transition-all duration-300`}>
+      <div className={`flex flex-col ${isOpen ? "flex-1" : "w-full"} sm:transition-all sm:duration-300`}>
         <Navbar isOpen={isOpen} toggle={toggle} />
         <main className="flex-1 w-full overflow-auto">
           {showOutletInstead ? <Outlet /> : <CardGrid />}

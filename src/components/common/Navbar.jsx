@@ -20,11 +20,13 @@ const Navbar = ({ isOpen, toggle }) => {
 
   return (
     <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
-      <div className="mx-auto px-4 py-4 flex items-center justify-between">
+      <div className={`mx-auto px-4 py-4 flex items-center ${isOpen ? 'justify-end' : 'justify-between'}`}>
         {/* Logo */}
-        <div className="text-2xl font-bold cursor-pointer select-none">
-          ✍️ Shayari
-        </div>
+        {!isOpen && (
+          <div className="text-2xl font-bold cursor-pointer select-none" onClick={toggle}>
+            ✍️ Shayari
+          </div>
+        )}
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center gap-6 font-medium relative">
