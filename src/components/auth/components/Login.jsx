@@ -1,7 +1,7 @@
 // src/components/Auth/Login.tsx
 import { FaUser, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { loginUser } from "../../../store/thunks/authThunks";
 
 const Login = () => {
@@ -10,23 +10,12 @@ const Login = () => {
   const [username, setUsername] = useState("john@mail.com");
   const [password, setPassword] = useState("changeme");
 
-  useEffect(() => {
-    localStorage.removeItem("persist:root");
-  }, []);
-
-  const handleLogin = async () => {
+  const handleLogin = () => {
     const payload = {
       email: username,
       password,
     };
-    const result = await dispatch(loginUser(payload));
-
-    if (result.success) {
-      console.log("Login successful!", result.data);
-      console.log("Redux State:", JSON.parse(JSON.stringify(result.data)));
-    } else {
-      console.error("Login failed:", result.error);
-    }
+    dispatch(loginUser(payload));
   };
 
   return (
