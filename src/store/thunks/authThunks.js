@@ -3,9 +3,7 @@ import {
     loginStart,
     loginSuccess,
     loginFailure,
-    registerStart,
-    registerSuccess,
-    registerFailure,
+    logout,
 } from "../slices/authSlice";
 
 export const loginUser = (credentials) => async (dispatch) => {
@@ -33,33 +31,8 @@ export const loginUser = (credentials) => async (dispatch) => {
     }
 };
 
-export const registerUser = (userData) => async (dispatch) => {
-    try {
-        dispatch(registerStart());
-
-        const response = await authAPI.register(userData);
-
-        localStorage.setItem("token", response.access_token);
-        localStorage.setItem("refresh_token", response.refresh_token);
-
-        dispatch(registerSuccess({
-            user: {
-                id: response.sub,
-                email: userData.email,
-            },
-            token: response.access_token,
-        }));
-
-        return { success: true, data: response };
-    } catch (error) {
-        const errorMessage = error?.message || error?.data?.message || "Registration failed";
-        dispatch(registerFailure(errorMessage));
-        return { success: false, error: errorMessage };
-    }
+export const logoutUser = () => (dispatch) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
+    dispatch(logout());
 };
-
-
-
-
-
-

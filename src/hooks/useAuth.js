@@ -1,21 +1,18 @@
+import { useSelector } from "react-redux";
+import { authAPI } from "../services/authService";
+
 export default function useAuth() {
+    const auth = useSelector((state) => state.auth);
+
     const isAuthenticated = () => {
-        return Boolean(localStorage.getItem("token"));
+        return auth.isAuthenticated && Boolean(auth.token);
     };
     const logout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("user");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("persist:root");
-        // Clear any other auth-related localStorage items if needed
-        Object.keys(localStorage).forEach(key => {
-            if (key.startsWith('auth_') || key.startsWith('token_')) {
-                localStorage.removeItem(key);
-            }
-        });
+        return authAPI.logout();
     };
+   
     return {
+        ...auth, // Spread all auth state
         isAuthenticated,
         logout,
     };

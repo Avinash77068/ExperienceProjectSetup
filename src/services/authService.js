@@ -11,9 +11,13 @@ export const authAPI = {
         return response.data;
     },
 
-    logout: async () => {
-        const response = await axiosClient.post("/auth/logout");
-        return response.data;
+    logout: async function () {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("persist:root");
+
     },
 
     refreshToken: async (refreshToken) => {
