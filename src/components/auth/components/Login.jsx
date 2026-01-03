@@ -1,20 +1,32 @@
 // src/components/Auth/Login.tsx
 import { FaUser, FaLock } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { login } from "../../../services/authService/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { loginUser } from "../../../store/thunks/authThunks";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { isLoading, error } = useSelector((state) => state.auth);
+  const [username, setUsername] = useState("john@mail.com");
+  const [password, setPassword] = useState("changeme");
 
-  const handleLogin = () => {
+  useEffect(() => {
+    localStorage.removeItem("persist:root");
+  }, []);
+
+  const handleLogin = async () => {
     const payload = {
       email: username,
       password,
     };
-    dispatch(login(payload));
+    const result = await dispatch(loginUser(payload));
+
+    if (result.success) {
+      console.log("Login successful!", result.data);
+      console.log("Redux State:", JSON.parse(JSON.stringify(result.data)));
+    } else {
+      console.error("Login failed:", result.error);
+    }
   };
 
   return (
@@ -51,10 +63,15 @@ const Login = () => {
 
         <button
           onClick={handleLogin}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition"
+          disabled={isLoading}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Login
+          {isLoading ? "Logging in..." : "Login"}
         </button>
+
+        {error && (
+          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+        )}
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Account nahi hai?{" "}
