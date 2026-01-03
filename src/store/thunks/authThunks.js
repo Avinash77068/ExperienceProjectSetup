@@ -5,22 +5,25 @@ import {
     loginFailure,
     logout,
 } from "../slices/authSlice";
-
+import Cookies from "cookies-js";
 export const loginUser = (credentials) => async (dispatch) => {
     try {
         dispatch(loginStart());
 
         const response = await authAPI.login(credentials);
 
-        localStorage.setItem("token", response.access_token);
-        localStorage.setItem("refresh_token", response.refresh_token);
+
+        Cookies.set("token", response.access_token);
+
+        Cookies.set("refresh_token", response.refresh_token, {
+            expires: 7,    
+        });
 
         dispatch(loginSuccess({
             user: {
                 id: response.sub,
                 email: credentials.email,
-            },
-            token: response.access_token,
+            }
         }));
 
         return { success: true, data: response };
@@ -33,7 +36,7 @@ export const loginUser = (credentials) => async (dispatch) => {
 
 export const logoutUser = () => (dispatch) => {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("refresh_token");
+    Cookies.expire("token");
+    Cookies.expire("refresh_token");
     dispatch(logout());
 };

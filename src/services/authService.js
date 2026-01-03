@@ -12,8 +12,8 @@ export const authAPI = {
     },
 
     logout: async function () {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
+        Cookies.expire("token");
+        Cookies.expire("refresh_token");
         localStorage.removeItem("user");
         localStorage.removeItem("userName");
         localStorage.removeItem("persist:root");
