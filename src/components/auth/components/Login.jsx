@@ -2,20 +2,28 @@
 import { FaUser, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../store/thunks/authThunks";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.auth);
   const [username, setUsername] = useState("john@mail.com");
   const [password, setPassword] = useState("changeme");
 
-  const handleLogin = () => {
+  const handleLogin =  () => {
     const payload = {
       email: username,
       password,
     };
-    dispatch(loginUser(payload));
+    const result = dispatch(loginUser(payload));
+
+    if (result.success) {
+      navigate("/home", { replace: true });
+    } else {
+      console.error('Login failed:', result.error);
+    }
   };
 
   return (

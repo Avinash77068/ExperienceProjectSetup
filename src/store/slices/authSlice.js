@@ -45,21 +45,6 @@ const authSlice = createSlice({
             state.error = action.payload;
         },
 
-        logoutStart: (state) => {
-            state.isLoading = true;
-        },
-        logoutSuccess: (state) => {
-            state.user = null;
-            state.token = null;
-            state.isAuthenticated = false;
-            state.isLoading = false;
-            state.error = null;
-        },
-        logoutFailure: (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
-
         updateProfile: (state, action) => {
             state.user = { ...state.user, ...action.payload };
         },
@@ -81,9 +66,6 @@ export const {
     registerStart,
     registerSuccess,
     registerFailure,
-    logoutStart,
-    logoutSuccess,
-    logoutFailure,
     updateProfile,
     clearError,
     setToken,

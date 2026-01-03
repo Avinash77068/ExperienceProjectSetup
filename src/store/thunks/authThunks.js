@@ -6,9 +6,6 @@ import {
     registerStart,
     registerSuccess,
     registerFailure,
-    logoutStart,
-    logoutSuccess,
-    logoutFailure,
 } from "../slices/authSlice";
 
 export const loginUser = (credentials) => async (dispatch) => {
@@ -61,63 +58,8 @@ export const registerUser = (userData) => async (dispatch) => {
     }
 };
 
-export const logoutUser = () => async (dispatch) => {
-    try {
-        dispatch(logoutStart());
 
-        await authAPI.logout();
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
 
-        dispatch(logoutSuccess());
 
-        return { success: true };
-    } catch (error) {
-        const errorMessage = error?.message || "Logout failed";
-        dispatch(logoutFailure(errorMessage));
 
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        dispatch(logoutSuccess());
-
-        return { success: false, error: errorMessage };
-    }
-};
-
-export const refreshUserToken = (refreshToken) => async (dispatch) => {
-    try {
-        const response = await authAPI.refreshToken(refreshToken);
-
-        localStorage.setItem("token", response.access_token);
-
-        dispatch(loginSuccess({
-            user: {
-                id: response.sub,
-            },
-            token: response.access_token,
-        }));
-
-        return { success: true, data: response };
-    } catch (error) {
-        dispatch(logoutSuccess());
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh_token");
-        return { success: false, error: error?.message };
-    }
-};
-
-export const fetchUserProfile = () => async (dispatch) => {
-    try {
-        const data = await authAPI.getProfile();
-
-        dispatch(loginSuccess({
-            user: data,
-            token: localStorage.getItem("token"),
-        }));
-
-        return { success: true, data };
-    } catch (error) {
-        return { success: false, error: error?.message };
-    }
-};

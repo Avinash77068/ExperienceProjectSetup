@@ -2,13 +2,14 @@ import { useState } from "react";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const Navbar = ({ isOpen, toggle }) => {
   const { isAuthenticated, logout } = useAuth();
   const [openProfile, setOpenProfile] = useState(false);
-
+  const { user } = useSelector((state) => state.auth);
   // demo username (future me backend se aayega)
-  const userName = localStorage.getItem("userName") || "Avinash";
+  const userEmail = user?.email;
 
   return (
     <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
@@ -50,13 +51,13 @@ const Navbar = ({ isOpen, toggle }) => {
                 className="flex items-center gap-2 hover:text-yellow-300 transition"
               >
                 <FaUserCircle size={22} />
-                <span>{userName}</span>
+                <span>{userEmail}</span>
               </button>
 
               {openProfile && (
                 <div className="absolute cursor-pointer right-0 mt-3 w-44 bg-white text-gray-800 rounded-xl shadow-lg overflow-hidden z-50">
                   <div className="px-4 py-3 border-b font-semibold text-purple-700">
-                    {userName}
+                    {userEmail}
                   </div>
 
                   <Link
