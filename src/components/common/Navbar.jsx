@@ -1,71 +1,90 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import { useSelector, useDispatch } from "react-redux";
+import useAuth from "../../hooks/useAuth";
 import { logoutUser } from "../../store/thunks/authThunks";
+import { Button } from "../customComponents/Button";
+import { NavItem } from "../customComponents/NavItem";
 
 const Navbar = ({ isOpen, toggle }) => {
-  const { isAuthenticated } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [openProfile, setOpenProfile] = useState(false);
+  const { isAuthenticated } = useAuth();
   const { user } = useSelector((state) => state.auth);
-  const userEmail = user?.email;
 
-  const handleLogout = () => {
+  const [openProfile, setOpenProfile] = useState(false);
+  const profileRef = useRef(null);
+
+  const isLoggedIn = useMemo(() => isAuthenticated(), [isAuthenticated]);
+  const userEmail = user?.email ?? "User";
+
+  const handleLogout = useCallback(() => {
     dispatch(logoutUser());
     navigate("/", { replace: true });
-  };
+  }, [dispatch, navigate]);
+
+  /* Close profile dropdown on outside click */
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setOpenProfile(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg">
-      <div className={`mx-auto px-4 py-4 flex items-center ${isOpen ? 'justify-end' : 'justify-between'}`}>
+    <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg sticky top-0 z-50">
+      <div
+        className={`mx-auto px-4 py-4 flex items-center ${
+          isOpen ? "justify-end" : "justify-between"
+        }`}
+      >
         {/* Logo */}
         {!isOpen && (
-          <div className="text-2xl font-bold cursor-pointer select-none" onClick={toggle}>
+          <div
+            onClick={toggle}
+            className="text-2xl font-bold select-none tracking-wide"
+          >
             ✍️ Shayari
           </div>
         )}
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center gap-6 font-medium relative">
-          <li className="hover:text-yellow-300">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="hover:text-yellow-300">
-            <Link to="/home/explore">Explore</Link>
-          </li>
-          <li className="hover:text-yellow-300">
-            <Link to="/home/categories">Categories</Link>
-          </li>
-          <li className="hover:text-yellow-300">
-            <Link to="/home/write">Write Shayari</Link>
-          </li>
+        <ul className="hidden md:flex items-center gap-6 font-medium">
+          <NavItem to="/" label="Home" />
+          <NavItem to="/home/explore" label="Explore" />
+          <NavItem to="/home/categories" label="Categories" />
+          <NavItem to="/home/write" label="Write Shayari" />
 
-          {!isAuthenticated() ? (
+          {!isLoggedIn ? (
             <>
-              <li className="border border-white px-4 py-1 rounded-full hover:bg-white hover:text-purple-700 transition cursor-pointer">
+              <Button to="/login" variant="outline">
                 Login
-              </li>
-              <li className="bg-white text-purple-700 px-4 py-1 rounded-full hover:bg-yellow-300 transition cursor-pointer">
+              </Button>
+              <Button to="/signup" variant="filled">
                 Sign Up
-              </li>
+              </Button>
             </>
           ) : (
-            /* Profile Dropdown */
-            <li className="relative">
+            /* Profile */
+            <li className="relative" ref={profileRef}>
               <button
-                onClick={() => setOpenProfile(!openProfile)}
-                className="flex items-center gap-2 hover:text-yellow-300 transition"
+                onClick={() => setOpenProfile((prev) => !prev)}
+                className="flex items-center gap-2 max-w-[180px] truncate hover:text-yellow-300 transition"
+                aria-haspopup="true"
+                aria-expanded={openProfile}
               >
                 <FaUserCircle size={22} />
-                <span>{userEmail}</span>
+                <span className="truncate">{userEmail}</span>
               </button>
 
               {openProfile && (
-                <div className="absolute cursor-pointer right-0 mt-3 w-44 bg-white text-gray-800 rounded-xl shadow-lg overflow-hidden z-50">
-                  <div className="px-4 py-3 border-b font-semibold text-purple-700">
+                <div className="absolute right-0 mt-3 w-48 bg-white text-gray-800 rounded-xl shadow-xl overflow-hidden">
+                  <div className="px-4 py-3 border-b text-sm font-semibold text-purple-700 truncate">
                     {userEmail}
                   </div>
 
@@ -78,7 +97,7 @@ const Navbar = ({ isOpen, toggle }) => {
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 transition"
+                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-red-100 transition"
                   >
                     Logout
                   </button>
@@ -88,7 +107,7 @@ const Navbar = ({ isOpen, toggle }) => {
           )}
         </ul>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle */}
         <button
           onClick={toggle}
           className="md:hidden focus:outline-none"
