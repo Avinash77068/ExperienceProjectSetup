@@ -1,11 +1,19 @@
 import ShayariCard from "../common/ShayariCard";
 import { sampleShayaris } from "../../constant/data/shayri/shayridata";
 import { useNavigate } from "react-router-dom";
+import useSidebar from "../../hooks/useSidebar";
 
 const CardGrid = () => {
   const navigate = useNavigate();
+  const { isOpen } = useSidebar();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+    <div
+      className={`grid grid-cols-1 md:grid-cols-2 gap-6 p-4 ${
+        isOpen
+          ? "lg:grid-cols-3 xl:grid-cols-3"
+          : "lg:grid-cols-4 xl:grid-cols-4"
+      }`}
+    >
       {sampleShayaris.map((shayari, index) => (
         <ShayariCard
           key={index}
@@ -27,7 +35,7 @@ const CardGrid = () => {
               </span>
             </div>
           }
-          onClick={() => navigate(`/home/shayari/${index+1}`)}
+          onClick={() => navigate(`/home/shayari/${index + 1}`)}
         >
           {/* Image */}
           <div className="relative mb-3">

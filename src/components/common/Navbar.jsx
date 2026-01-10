@@ -37,7 +37,7 @@ const Navbar = ({ isOpen, toggle }) => {
   }, []);
 
   return (
-    <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-linear-to-r from-purple-700 via-pink-600 to-red-500 text-white shadow-lg sticky top-0 sm:z-50">
       <div
         className={`mx-auto px-4 py-4 flex items-center ${
           isOpen ? "justify-end" : "justify-between"
