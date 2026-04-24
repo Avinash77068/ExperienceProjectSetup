@@ -1,1 +1,68 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Playfair+Display:wght@500;700;800&display=swap');
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: #0a0a0f;
+  color: #f4f4f5;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.shayri-card {
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(251, 191, 36, 0.06),
+    0 0 28px rgba(251, 191, 36, 0.08);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease,
+    border-color 250ms ease;
+}
+
+.shayri-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(251, 191, 36, 0.35);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(251, 191, 36, 0.12),
+    0 0 34px rgba(251, 191, 36, 0.2);
+}
+
+.shayri-image {
+  transition:
+    transform 350ms ease,
+    filter 350ms ease;
+}
+
+.shayri-card:hover .shayri-image {
+  transform: scale(1.06);
+  filter: saturate(1.08);
+}
+
+.fade-in {
+  animation: fadeIn 520ms ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
