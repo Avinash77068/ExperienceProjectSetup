@@ -49,7 +49,7 @@ export default function AdminDashboard({
         user={user}
         onNavigationClick={handleNavigationClick}
         onUserAction={handleUserAction}
-        className="bg-[#0a0a0f] border-amber-300/20"
+        className="bg-[#0a0a0f] text-white border-amber-300/20"
       />
       
       <main className="min-h-screen bg-[#0a0a0f] px-4 py-8 text-zinc-100">
@@ -60,13 +60,13 @@ export default function AdminDashboard({
             Authentication failed.
           </div>
         ) : (
-          <div className="space-y-6">
-            <section className="rounded-2xl border border-amber-300/30 bg-zinc-900/70 p-5">
+          <div className="space-y-6 flex-col flex">
+            <section className="rounded-2xl border border-amber-300/30 bg-zinc-900/70 p-5 max-w-xl">
               <p className="text-sm text-zinc-400">Total Shayris</p>
               <p className="mt-1 text-3xl font-semibold text-amber-300">{posts.length}</p>
             </section>
 
-            <section className="rounded-2xl border border-amber-300/30 bg-zinc-900/70 p-5">
+            <section className="rounded-2xl border border-amber-300/30 bg-zinc-900/70 p-5 max-w-xl">
               <h2 className="mb-4 font-display text-2xl text-amber-200">Nayi Shayri Post Karein</h2>
               <form onSubmit={onAddPost} className="grid gap-4 md:grid-cols-2">
                 <textarea

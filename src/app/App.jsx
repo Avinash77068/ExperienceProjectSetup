@@ -45,6 +45,7 @@ export default function App() {
   const [copiedId, setCopiedId] = useState('')
   const [showAdmin, setShowAdmin] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const [newText, setNewText] = useState('')
   const [newCategory, setNewCategory] = useState('Ishq')
@@ -97,6 +98,18 @@ export default function App() {
       return categoryMatches && searchMatches
     })
   }, [posts, selectedCategory, searchTerm])
+
+  const itemsPerPage = 12
+  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage)
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    return filteredPosts.slice(startIndex, startIndex + itemsPerPage)
+  }, [filteredPosts, currentPage])
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory, searchTerm])
 
   const handleCopy = async (text, id) => {
     try {
@@ -173,11 +186,16 @@ export default function App() {
       setSelectedCategory={setSelectedCategory}
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
-      filteredPosts={filteredPosts}
+      filteredPosts={paginatedPosts}
       copiedId={copiedId}
       likes={likes}
       onCopy={handleCopy}
       onLike={handleLike}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={setCurrentPage}
+      totalItems={filteredPosts.length}
+      itemsPerPage={itemsPerPage}
     />
   )
 }

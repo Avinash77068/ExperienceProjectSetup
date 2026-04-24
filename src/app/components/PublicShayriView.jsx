@@ -1,5 +1,6 @@
 import ShayriCard from "./ShayriCard";
 import Header from "./Header";
+import Pagination from "./Pagination";
 import { FiHome, FiSettings } from "react-icons/fi";
 
 export default function PublicShayriView({
@@ -13,6 +14,11 @@ export default function PublicShayriView({
   likes,
   onCopy,
   onLike,
+  currentPage,
+  totalPages,
+  onPageChange,
+  totalItems,
+  itemsPerPage,
 }) {
   const navigationItems = [
     { label: "Home", path: "/" },
@@ -79,7 +85,7 @@ export default function PublicShayriView({
             />
           </section>
 
-          <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filteredPosts.map((post) => (
               <ShayriCard
                 key={post.id}
@@ -96,6 +102,17 @@ export default function PublicShayriView({
             <p className="mt-10 text-center text-zinc-400">
               Koi shayri nahi mili. Dusra keyword try karein.
             </p>
+          )}
+          
+          {filteredPosts.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+              totalItems={totalItems}
+              itemsPerPage={itemsPerPage}
+              className="mt-8"
+            />
           )}
         </div>
       </main>

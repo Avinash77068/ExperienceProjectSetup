@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import { Check, Copy, Heart } from 'lucide-react'
+import { BsWhatsapp } from 'react-icons/bs'
 
 const CATEGORY_GRADIENTS = {
   Ishq: 'from-rose-700/80 via-pink-600/60 to-amber-500/60',
@@ -10,12 +12,18 @@ const CATEGORY_GRADIENTS = {
 
 export default function ShayriCard({ post, copiedId, likeCount, onCopy, onLike }) {
   const [imageFailed, setImageFailed] = useState(false)
-  const encodedMessage = encodeURIComponent(`${post.text}\n\n- ${post.author}\n#${post.category} #Shayri`)
+  
+  const encodedMessage = useMemo(() => 
+    encodeURIComponent(`${post.text}\n\n- ${post.author}\n#${post.category} #Shayri`),
+    [post.text, post.author, post.category]
+  )
+  
   const gradientClass = CATEGORY_GRADIENTS[post.category] ?? 'from-zinc-800 via-zinc-700 to-zinc-900'
   const showImage = post.imageUrl && !imageFailed
+  const isCopied = copiedId === post.id
 
   return (
-    <article className="shayri-card fade-in relative overflow-hidden rounded-2xl border border-amber-200/15 bg-zinc-900/80 p-5">
+    <article className="shayri-card fade-in  max-w-[340px] relative overflow-hidden rounded-2xl border border-amber-200/15 bg-zinc-900/80 p-5">
       <div className="absolute inset-0">
         {showImage ? (
           <img
@@ -35,9 +43,13 @@ export default function ShayriCard({ post, copiedId, likeCount, onCopy, onLike }
         <span className="mb-4 inline-block rounded-full border border-amber-100/30 bg-black/35 px-3 py-1 text-xs text-amber-100 backdrop-blur-sm">
           {post.category}
         </span>
-        <p className="mb-4 whitespace-pre-line font-urdu text-xl leading-relaxed text-zinc-100">{post.text}</p>
+        <p className="mb-4 whitespace-pre-line font-urdu text-xl leading-relaxed text-zinc-100">
+          {post.text}
+        </p>
         <div className="mb-4 flex items-center justify-between text-sm">
-          <span className="rounded-full bg-amber-400/10 px-3 py-1 text-amber-200">{post.category}</span>
+          <span className="rounded-full bg-amber-400/10 px-3 py-1 text-amber-200">
+            {post.category}
+          </span>
           <span className="text-zinc-400">{post.date}</span>
         </div>
         <p className="mb-5 text-sm text-zinc-300">- {post.author}</p>
@@ -46,27 +58,33 @@ export default function ShayriCard({ post, copiedId, likeCount, onCopy, onLike }
           <button
             type="button"
             onClick={() => onCopy(post.text, post.id)}
-            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-amber-300 hover:text-amber-200"
+            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-amber-300 hover:text-amber-200 transition-colors"
+            aria-label={isCopied ? "Copied" : "Copy shayri"}
           >
-            {copiedId === post.id ? 'Copied' : 'Copy'}
+            {isCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
           </button>
+          
           <a
             href={`https://wa.me/?text=${encodedMessage}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-green-400 hover:text-green-300"
+            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-green-400 hover:text-green-300 transition-colors flex items-center justify-center"
+            aria-label="Share on WhatsApp"
           >
-            WhatsApp Share
+            <BsWhatsapp className="h-4 w-4" />
           </a>
+          
           <button
             type="button"
             onClick={() => onLike(post.id)}
-            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-pink-400 hover:text-pink-300"
+            className="rounded-md border border-zinc-700 bg-zinc-900/40 px-3 py-2 text-sm hover:border-pink-400 hover:text-pink-300 transition-colors flex items-center gap-1"
+            aria-label="Like shayri"
           >
-            Heart {likeCount}
+            <Heart className="h-4 w-4" fill={likeCount > 0 ? "red" : "none"}/>
+            <span>{likeCount}</span>
           </button>
         </div>
       </div>
     </article>
-  )
+  );
 }
