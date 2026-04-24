@@ -1,3 +1,6 @@
+import Header from './Header'
+import { FiHome, FiLogOut } from 'react-icons/fi'
+
 export default function AdminDashboard({
   posts,
   isAuthenticated,
@@ -13,21 +16,44 @@ export default function AdminDashboard({
   onAddPost,
   onDeletePost,
 }) {
+  const navigationItems = [
+    { label: 'Dashboard', path: '#admin' },
+    { label: 'Analytics', path: '#admin/analytics' },
+    { label: 'Settings', path: '#admin/settings' }
+  ]
+
+  const handleNavigationClick = (item) => {
+    console.log('Admin navigation to:', item.path)
+  }
+
+  const handleUserAction = (action) => {
+    if (action.action === 'logout') {
+      window.location.hash = ''
+    }
+  }
+
+  const user = {
+    name: 'Admin',
+    actions: [
+      { label: 'Public Site', icon: FiHome, action: 'public' },
+      { label: 'Logout', icon: FiLogOut, action: 'logout' }
+    ]
+  }
+
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 py-8 text-zinc-100">
-      <div className="mx-auto max-w-6xl">
-        <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <h1 className="font-display text-3xl text-amber-300">Shayri Admin Dashboard</h1>
-          <button
-            type="button"
-            onClick={() => {
-              window.location.hash = ''
-            }}
-            className="rounded-lg border border-amber-400/40 px-4 py-2 text-amber-200 hover:bg-amber-300/10"
-          >
-            Public Site
-          </button>
-        </header>
+    <>
+      <Header
+        title="Shayri Admin Dashboard"
+        subtitle="Manage your shayri collection"
+        navigationItems={navigationItems}
+        user={user}
+        onNavigationClick={handleNavigationClick}
+        onUserAction={handleUserAction}
+        className="bg-[#0a0a0f] border-amber-300/20"
+      />
+      
+      <main className="min-h-screen bg-[#0a0a0f] px-4 py-8 text-zinc-100">
+        <div className="mx-auto max-w-6xl">
 
         {!isAuthenticated ? (
           <div className="rounded-xl border border-red-400/40 bg-zinc-900/80 p-6 text-red-200">
@@ -121,7 +147,8 @@ export default function AdminDashboard({
             </section>
           </div>
         )}
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   )
 }
