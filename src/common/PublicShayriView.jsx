@@ -184,16 +184,20 @@ const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost })
 
 const SEOContent = () => (
   <section className="max-w-4xl mx-auto px-6 py-8 text-zinc-300">
-    <h1 className="text-4xl font-bold text-white mb-6 text-center">
+    <h2 className="text-4xl font-bold text-white mb-6 text-center">
       AllShayri - हिंदी उर्दू शायरी का बेहतरीन संग्रह
-    </h1>
+    </h2>
     
     <div className="prose prose-invert max-w-none mb-8">
+      <h3 className="text-2xl font-semibold text-white mb-4">शायरी की दुनिया में आपका स्वागत</h3>
+      
       <p className="text-lg leading-relaxed mb-4">
         AllShayri.info पर आपका स्वागत है। यहाँ मिलेगी हर जज़्बात की शायरी —
         मोहब्बत की, दर्द की, दोस्ती की और ज़िंदगी की।
         हमारे पास हज़ारों बेहतरीन हिंदी और उर्दू शायरियों का संग्रह है।
       </p>
+      
+      <h3 className="text-2xl font-semibold text-white mb-4 mt-6">हर जज़्बात की शायरी</h3>
       
       <p className="text-lg leading-relaxed mb-6">
         चाहे आप <strong>Love Shayari</strong> ढूंढ रहे हों अपने प्यार के लिए,
@@ -203,7 +207,7 @@ const SEOContent = () => (
     </div>
     
     <nav aria-label="Shayri Categories" className="mb-8">
-      <h2 className="text-2xl font-bold text-white mb-4">शायरी की श्रेणियाँ</h2>
+      <h3 className="text-2xl font-bold text-white mb-4">शायरी की श्रेणियाँ</h3>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <a href="#love" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
           <span className="text-amber-400">❤️</span> Love Shayari
