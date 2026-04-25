@@ -349,16 +349,16 @@ export const MASTER_POETRY_COLLECTION = [
       featured: false
     },
     user: {
-      id: 3,
+      id: 11,
       name: 'Avinash',
       author: 'Avinash',
-      email: 'test@example.com',
+      email: 'avinash@example.com',
       role: 'user',
-      status: 'suspended',
-      joinDate: '2024-03-10',
-      lastActive: '2024-04-20',
-      postsCount: 8,
-      permissions: ['read']
+      status: 'active',
+      joinDate: '2024-04-25',
+      lastActive: '2024-04-25',
+      postsCount: 1,
+      permissions: ['read', 'write']
     }
   }
 ]
