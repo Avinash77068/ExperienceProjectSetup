@@ -30,9 +30,19 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Handle SPA routing
+# Handle SPA routing - Fix 404 errors
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["user"]}
+
+# Specific routing for admin panel
+[[redirects]]
+  from = "/admin"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "#admin"
+  to = "/index.html"
+  status = 200
