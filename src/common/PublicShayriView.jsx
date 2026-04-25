@@ -183,7 +183,7 @@ const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost })
 }
 
 const SEOContent = () => (
-  <section className="max-w-4xl mx-auto px-6 py-8 text-zinc-300">
+  <section className="max-w-4xl hidden mx-auto px-6 py-8 text-zinc-300">
     <h2 className="text-4xl font-bold text-white mb-6 text-center">
       AllShayri - हिंदी उर्दू शायरी का बेहतरीन संग्रह
     </h2>
