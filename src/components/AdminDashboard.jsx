@@ -1,4 +1,4 @@
-import Header from './Header'
+import Header from '../common/Header'
 import { FiHome, FiLogOut } from 'react-icons/fi'
 
 export default function AdminDashboard({

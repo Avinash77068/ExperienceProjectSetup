@@ -11,7 +11,7 @@ export const CARD_STYLES = {
   gradient: 'absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/95 via-[#0a0a0f]/75 to-[#0a0a0f]/45',
   content: 'relative z-10',
   categoryBadge: 'mb-4 inline-block rounded-full border border-amber-100/30 bg-black/35 px-3 py-1 text-xs text-amber-100 backdrop-blur-sm',
-  shayriText: 'mb-4 whitespace-pre-line font-urdu text-xl leading-relaxed text-zinc-100',
+  shayriText: 'mb-4 whitespace-pre-line font-urdu text-xl max-h-[100px] text-ellipsis overflow-y-auto leading-relaxed text-zinc-100',
   metadata: 'mb-4 flex items-center justify-between text-sm',
   categoryTag: 'rounded-full bg-amber-400/10 px-3 py-1 text-amber-200',
   dateText: 'text-zinc-400',

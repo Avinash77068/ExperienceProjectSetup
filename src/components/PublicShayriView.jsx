@@ -7,8 +7,8 @@
 
 import { useState, useMemo, useCallback } from 'react'
 import ShayriCard from './ShayriCard'
-import Header from './Header'
-import Pagination from './Pagination'
+import Header from '../common/Header'
+import Pagination from '../common/Pagination'
 import { FiHome, FiSettings, FiSearch, FiFilter } from 'react-icons/fi'
 import { AVAILABLE_CATEGORIES, PoetryRepository } from '../data/shayriData'
 
