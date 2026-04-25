@@ -16,18 +16,20 @@ export const POETRY_CATEGORIES = {
   JOY: 'Khushi',
   SEPARATION: 'Judai',
   MOTIVATIONAL: 'Motivational',
-  HEARTBREAK: 'Heartbreak'
+  HEARTBREAK: 'Heartbreak',
+  ATTITUDE: 'Attitude'
 }
 
 export const CATEGORY_DISPLAY_NAMES = {
   [POETRY_CATEGORIES.ALL]: 'सभी शायरी',
   [POETRY_CATEGORIES.ROMANTIC]: 'इश्क़',
   [POETRY_CATEGORIES.MELANCHOLY]: 'दर्द',
-  [POETRY_CATEGORIES.LIFE]: 'ज़िन्दगी',
+  [POETRY_CATEGORIES.LIFE]: 'ज़िन्दगी',
   [POETRY_CATEGORIES.JOY]: 'खुशी',
   [POETRY_CATEGORIES.SEPARATION]: 'जुदाई',
   [POETRY_CATEGORIES.MOTIVATIONAL]: 'प्रेरणा',
-  [POETRY_CATEGORIES.HEARTBREAK]: 'दिल टूटना'
+  [POETRY_CATEGORIES.HEARTBREAK]: 'दिल टूटना',
+  [POETRY_CATEGORIES.ATTITUDE]: 'साहस'
 }
 
 export const AVAILABLE_CATEGORIES = Object.values(POETRY_CATEGORIES).filter(cat => cat !== POETRY_CATEGORIES.ALL)
