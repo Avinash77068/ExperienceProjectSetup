@@ -127,7 +127,7 @@ export default function AdminSidebar({
                 <FileText className="w-4 h-4 text-amber-200" />
                 <span className="text-sm text-zinc-300">Total Shayris</span>
               </div>
-              <span className="text-sm font-bold text-amber-200">{statistics.total}</span>
+              <span className="text-sm font-bold text-amber-200">{statistics?.total}</span>
             </div>
             
             <div className="flex items-center justify-between">

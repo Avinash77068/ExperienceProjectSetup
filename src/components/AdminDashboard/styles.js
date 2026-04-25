@@ -6,7 +6,9 @@
  */
 
 export const ADMIN_STYLES = {
+  dashboard: 'min-h-screen flex-1 bg-zinc-950 text-zinc-100 flex',
   container: 'min-h-screen bg-zinc-950 text-zinc-100 flex',
+  mainContent: 'flex-1 p-6 overflow-auto',
   header: 'bg-zinc-900 border-b border-zinc-800 p-6',
   title: 'text-2xl font-bold text-amber-200 mb-2',
   subtitle: 'text-zinc-400',
