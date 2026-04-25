@@ -340,7 +340,7 @@ export const MASTER_POETRY_COLLECTION = [
     id: 'shayri-014',
     text: 'ज़िन्दगी का सफ़र कभी आसान नहीं होता,\nहर मोड़ पर एक इम्तिहाँ होता है।',
     category: POETRY_CATEGORIES.LIFE,
-    author: 'रिज़वान अली',
+     author: 'Avinash',
     date: '2026-02-09',
     imageUrl: 'https://images.unsplash.com/photo-1496307653780-42ee777d4833',
     metadata: {
