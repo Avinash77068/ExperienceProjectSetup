@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
-import { Menu, User, X } from 'lucide-react'
+import { LogOut, Menu, User, X } from 'lucide-react'
 import GuestPostForm from './GuestPostForm'
 
 /**
