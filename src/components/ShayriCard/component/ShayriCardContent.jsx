@@ -7,18 +7,12 @@
 
 import { CARD_STYLES } from '../config/styles'
 
-export default function ShayriCardContent({ text, category, date, author }) {
+export default function ShayriCardContent({ text, author, handleCardClick }) {
   return (
     <>
-      <p className={CARD_STYLES.shayriText}>
+      <p className={CARD_STYLES.shayriText} onClick={handleCardClick}>
         {text}
       </p>
-      <div className={CARD_STYLES.metadata}>
-        <span className={CARD_STYLES.categoryTag}>
-          {category}
-        </span>
-        <span className={CARD_STYLES.dateText}>{date}</span>
-      </div>
       <p className={CARD_STYLES.author}>- {author}</p>
     </>
   )

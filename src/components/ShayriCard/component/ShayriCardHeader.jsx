@@ -7,10 +7,11 @@
 
 import { CARD_STYLES } from '../config/styles'
 
-export default function ShayriCardHeader({ category }) {
+export default function ShayriCardHeader({ category, date }) {
   return (
-    <span className={CARD_STYLES.categoryBadge}>
-      {category}
-    </span>
-  )
+    <div className={CARD_STYLES.metadata}>
+      <span className={CARD_STYLES.categoryBadge}>{category}</span>
+      <span className={CARD_STYLES.dateText}>{date}</span>
+    </div>
+  );
 }
