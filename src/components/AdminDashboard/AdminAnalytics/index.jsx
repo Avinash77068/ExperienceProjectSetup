@@ -5,8 +5,7 @@
  * @version 2.0.0
  */
 
-import { useState, useMemo } from 'react'
-import { TrendingUp, Users, Eye, Heart, Calendar, BarChart3, PieChart, Activity } from 'lucide-react'
+import { useMemo } from 'react'
 import { ADMIN_STYLES } from '../styles'
 import { PoetryRepository, UserRepository } from '../../../data/shayriData'
 
