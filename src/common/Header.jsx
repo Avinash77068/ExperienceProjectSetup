@@ -110,6 +110,7 @@ const createHeaderHandlers = (callbacks) => {
   const { onNavigationClick, onUserAction } = callbacks
   
   const handleNavigationClick = useCallback((item) => {
+    window.location.reload()
     if (onNavigationClick) onNavigationClick(item)
   }, [onNavigationClick])
   
