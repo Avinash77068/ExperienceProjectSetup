@@ -12,6 +12,7 @@ import AdminForm from '../AdminForm'
 import AdminTable from '../AdminTable'
 import AdminUserManagement from '../AdminUserManagement'
 import AdminAnalytics from '../AdminAnalytics'
+import { useShayriData } from '../../../hooks/useShayriData'
 
 // ====================
 // DASHBOARD TABS COMPONENT
@@ -26,6 +27,8 @@ const DashboardTabs = ({
   onDeletePost, 
   canDeletePosts 
 }) => {
+  // Use shayri data hook for local storage data
+  const shayriData = useShayriData()
   const {
     formData,
     errors,
@@ -54,7 +57,7 @@ const DashboardTabs = ({
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <AdminOverview posts={dataState.posts || []} statistics={dataState.statistics} />
+        return <AdminOverview posts={shayriData.posts} statistics={shayriData.statistics} />
 
       case 'posts':
         return (
@@ -75,8 +78,8 @@ const DashboardTabs = ({
             <div className={ADMIN_STYLES.search}>
               <input
                 type="text"
-                value={searchTerm}
-                onChange={(e) => handleSearch(e.target.value)}
+                value={shayriData.searchTerm}
+                onChange={(e) => shayriData.setSearchTerm(e.target.value)}
                 placeholder="Search shayris..."
                 className={ADMIN_STYLES.searchInput}
               />
@@ -84,11 +87,11 @@ const DashboardTabs = ({
             
             {/* Posts Table */}
             <AdminTable
-              posts={paginatedPosts}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-              onDeletePost={onDeletePost}
+              posts={shayriData.paginatedPosts}
+              currentPage={shayriData.currentPage}
+              totalPages={shayriData.totalPages}
+              onPageChange={shayriData.setCurrentPage}
+              onDeletePost={shayriData.handleDeleteShayri}
               onEditPost={handleEditPost}
               canDeletePosts={canDeletePosts}
             />
@@ -118,7 +121,7 @@ const DashboardTabs = ({
         )
 
       default:
-        return <AdminOverview posts={dataState.posts || []} statistics={dataState.statistics} />
+        return <AdminOverview posts={shayriData.posts} statistics={shayriData.statistics} />
     }
   }
 

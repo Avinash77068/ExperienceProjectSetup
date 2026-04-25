@@ -7,7 +7,7 @@
 
 import { useMemo } from 'react'
 import { ADMIN_STYLES } from '../styles'
-import { PoetryRepository, UserRepository } from '../../../data/shayriData'
+import { useShayriData } from '../../../hooks/useShayriData'
 
 // ====================
 // ANALYTICS COMPONENTS
@@ -19,12 +19,14 @@ import ContentAnalytics from './components/ContentAnalytics'
 import TimeSeriesChart from './components/TimeSeriesChart'
 
 export default function AdminAnalytics() {
+  // Use shayri data hook for local storage data
+  const shayriData = useShayriData()
+  
   // Calculate comprehensive analytics data
   const analyticsData = useMemo(() => {
-    const shayriStats = PoetryRepository.getStatistics()
-    const userStats = UserRepository.getUserStats()
-    const allShayris = PoetryRepository.getAllShayri()
-    const allUsers = UserRepository.getAllUsers()
+    const shayriStats = shayriData.statistics
+    const allShayris = shayriData.posts
+    const allUsers = [] // Users will be extracted from posts
 
     // Engagement metrics
     const totalEngagement = allShayris.reduce((acc, shayri) => ({
