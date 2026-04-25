@@ -335,6 +335,31 @@ export const MASTER_POETRY_COLLECTION = [
       postsCount: 8,
       permissions: ['read']
     }
+  },
+   {
+    id: 'shayri-014',
+    text: 'ज़िन्दगी का सफ़र कभी आसान नहीं होता,\nहर मोड़ पर एक इम्तिहाँ होता है।',
+    category: POETRY_CATEGORIES.LIFE,
+    author: 'रिज़वान अली',
+    date: '2026-02-09',
+    imageUrl: 'https://images.unsplash.com/photo-1496307653780-42ee777d4833',
+    metadata: {
+      views: 1290,
+      shares: 98,
+      featured: false
+    },
+    user: {
+      id: 3,
+      name: 'Avinash',
+      author: 'Avinash',
+      email: 'test@example.com',
+      role: 'user',
+      status: 'suspended',
+      joinDate: '2024-03-10',
+      lastActive: '2024-04-20',
+      postsCount: 8,
+      permissions: ['read']
+    }
   }
 ]
 
