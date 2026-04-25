@@ -11,6 +11,7 @@ import AdminOverview from '../AdminOverview'
 import AdminForm from '../AdminForm'
 import AdminTable from '../AdminTable'
 import AdminUserManagement from '../AdminUserManagement'
+import AdminAnalytics from '../AdminAnalytics'
 
 // ====================
 // DASHBOARD TABS COMPONENT
@@ -98,20 +99,7 @@ const DashboardTabs = ({
         return <AdminUserManagement />
 
       case 'analytics':
-        return (
-          <div className={ADMIN_STYLES.content}>
-            <div>
-              <h1 className={ADMIN_STYLES.title}>Analytics</h1>
-              <p className={ADMIN_STYLES.subtitle}>View detailed analytics and reports</p>
-            </div>
-            <div className={ADMIN_STYLES.statCard}>
-              <div className="text-center py-8">
-                <BarChart3 className="w-12 h-12 text-zinc-400 mx-auto mb-4" />
-                <p className="text-zinc-400">Advanced analytics coming soon...</p>
-              </div>
-            </div>
-          </div>
-        )
+        return <AdminAnalytics />
 
       case 'settings':
         return (
