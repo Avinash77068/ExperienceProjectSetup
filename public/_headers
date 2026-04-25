@@ -1,0 +1,27 @@
+# Fix MIME types for JavaScript modules
+/*.*
+  X-Content-Type-Options: nosniff
+
+# Serve JavaScript files with correct MIME type
+*.js
+  Content-Type: application/javascript
+
+# Serve JSX/TSX files as JavaScript
+*.jsx
+  Content-Type: application/javascript
+
+*.tsx
+  Content-Type: application/javascript
+
+# Serve module files correctly
+*.mjs
+  Content-Type: application/javascript
+
+# Serve JSON files correctly
+*.json
+  Content-Type: application/json
+
+# Security headers
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: strict-origin-when-cross-origin

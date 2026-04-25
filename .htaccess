@@ -1,0 +1,30 @@
+# Fix MIME types for JavaScript modules
+<IfModule mod_mime.c>
+    # Serve JavaScript files with correct MIME type
+    AddType application/javascript .js
+    AddType application/javascript .jsx
+    AddType application/javascript .mjs
+    AddType application/javascript .ts
+    AddType application/javascript .tsx
+    
+    # Remove any conflicting MIME types
+    <FilesMatch "\.(js|jsx|mjs|ts|tsx)$">
+        Header always set Content-Type "application/javascript"
+    </FilesMatch>
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Handle SPA routing
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+</IfModule>
