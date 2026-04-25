@@ -5,7 +5,7 @@
  * @version 2.0.0
  */
 
-import { Trash2, Edit, Eye } from 'lucide-react'
+import { Trash2, Edit } from 'lucide-react'
 import { ADMIN_STYLES } from './styles'
 
 export default function AdminTable({ 
@@ -14,6 +14,7 @@ export default function AdminTable({
   totalPages, 
   onPageChange, 
   onDeletePost, 
+  onEditPost, 
   canDeletePosts 
 }) {
   const handleDelete = (id, text) => {
@@ -21,6 +22,10 @@ export default function AdminTable({
     if (confirmed) {
       onDeletePost(id)
     }
+  }
+  
+  const handleEdit = (post) => {
+    onEditPost(post)
   }
   
   return (
@@ -44,9 +49,8 @@ export default function AdminTable({
                   {post.text}
                 </div>
                 {post.imageUrl && (
-                  <div className="flex items-center gap-1 mt-1">
-                    <Eye className="w-3 h-3 text-zinc-400" />
-                    <span className="text-xs text-zinc-400">Has Image</span>
+                  <div className="mt-1">
+                    <span className="text-xs text-zinc-400">🖼️ Has Image</span>
                   </div>
                 )}
               </div>
@@ -67,6 +71,13 @@ export default function AdminTable({
               
               <div className="col-span-1">
                 <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleEdit(post)}
+                    className="p-1 rounded hover:bg-amber-900/20 text-amber-400"
+                    title="Edit"
+                  >
+                    <Edit className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={() => handleDelete(post.id, post.text)}
                     className={`p-1 rounded ${canDeletePosts ? 'hover:bg-red-900/20 text-red-400' : 'opacity-50 cursor-not-allowed text-zinc-600'}`}

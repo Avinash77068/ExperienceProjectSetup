@@ -35,23 +35,29 @@ const HEADER_CONFIG = {
 // STYLES CONSTANTS
 // ====================
 const HEADER_STYLES = {
-  container: 'w-full fixed top-0 left-0 right-0 z-50 py-4 border-b border-gray-200 text-gray-900',
-  inner: 'container mx-auto px-4',
-  content: 'flex items-center justify-between',
-  brand: 'flex-shrink-0',
-  title: 'font-display text-2xl font-bold',
-  subtitle: 'text-sm opacity-75',
-  navigation: 'hidden md:flex items-center space-x-6',
-  navigationMobile: 'md:hidden',
-  userSection: 'flex items-center space-x-4',
-  userButton: 'flex items-center space-x-2 rounded-lg px-3 py-2 text-sm hover:bg-gray-100 transition-colors',
-  userAvatar: 'w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center',
-  dropdown: 'absolute right-0 top-full mt-2 w-48 rounded-lg border border-gray-200 bg-white shadow-lg',
-  dropdownItem: 'block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors',
-  mobileMenuButton: 'md:hidden p-2 rounded-lg hover:bg-gray-100',
-  mobileMenu: 'absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg',
-  mobileNavigation: 'py-4 space-y-2'
-}
+  container:
+    "w-full fixed top-0 left-0 right-0 z-50 py-4 border-b border-gray-200 text-gray-900",
+  inner: "container mx-auto px-4",
+  content: "flex items-center justify-between",
+  brand: "flex-shrink-0",
+  title: "font-display text-2xl font-bold",
+  subtitle: "text-sm opacity-75",
+  navigation: "hidden md:flex items-center space-x-6",
+  navigationMobile: "md:hidden",
+  userSection: "flex items-center space-x-4 cursor-pointer",
+  userButton:
+    "flex items-center space-x-2 rounded-lg px-3 py-2 text-sm transition-colors cursor-pointer",
+  userAvatar:
+    "w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer",
+  dropdown:
+    "absolute right-0 top-full mt-2 w-48 rounded-lg border border-gray-200 bg-white shadow-lg",
+  dropdownItem:
+    "block w-full bg-black text-white text-left px-4 py-2 text-sm rounded-lg transition-colors",
+  mobileMenuButton: "md:hidden p-2 rounded-lg cursor-pointer",
+  mobileMenu:
+    "absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg",
+  mobileNavigation: "py-4 space-y-2",
+};
 
 // ====================
 // UTILITY HOOKS

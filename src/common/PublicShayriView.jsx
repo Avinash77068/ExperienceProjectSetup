@@ -6,9 +6,9 @@
  */
 
 import { useState, useMemo, useCallback } from 'react'
-import ShayriCard from './ShayriCard'
-import Header from '../common/Header'
-import Pagination from '../common/Pagination'
+import ShayriCard from '../components/ShayriCard'
+import Header from './Header'
+import Pagination from './Pagination'
 import { FiHome, FiSettings, FiSearch, FiFilter } from 'react-icons/fi'
 import { AVAILABLE_CATEGORIES, PoetryRepository } from '../data/shayriData'
 
@@ -156,7 +156,7 @@ const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost })
   ]
   
   const user = {
-    name: isGuestMode ? 'Guest Mode' : 'Guest',
+    name: isGuestMode ? 'Guest Mode' : 'Login',
     actions: [
       { label: 'Admin Panel', icon: FiSettings, action: 'admin' },
       { label: 'Guest Mode', icon: FiFilter, action: 'guest' },

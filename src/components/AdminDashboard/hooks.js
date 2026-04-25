@@ -23,6 +23,8 @@ export const useAdminFormState = (initialData = {}) => {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editingId, setEditingId] = useState(null)
   
   const handleInputChange = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -59,6 +61,20 @@ export const useAdminFormState = (initialData = {}) => {
       imageUrl: ''
     })
     setErrors({})
+    setIsEditing(false)
+    setEditingId(null)
+  }, [])
+  
+  const startEdit = useCallback((post) => {
+    setFormData({
+      text: post.text,
+      author: post.author,
+      category: post.category,
+      imageUrl: post.imageUrl || ''
+    })
+    setIsEditing(true)
+    setEditingId(post.id)
+    setErrors({})
   }, [])
   
   return {
@@ -66,9 +82,12 @@ export const useAdminFormState = (initialData = {}) => {
     errors,
     isSubmitting,
     setIsSubmitting,
+    isEditing,
+    editingId,
     handleInputChange,
     validateForm,
-    resetForm
+    resetForm,
+    startEdit
   }
 }
 

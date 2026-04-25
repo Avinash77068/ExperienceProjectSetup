@@ -6,13 +6,13 @@
  */
 
 export const ADMIN_STYLES = {
-  container: 'min-h-screen bg-zinc-950 text-zinc-100',
+  container: 'min-h-screen bg-zinc-950 text-zinc-100 flex',
   header: 'bg-zinc-900 border-b border-zinc-800 p-6',
   title: 'text-2xl font-bold text-amber-200 mb-2',
   subtitle: 'text-zinc-400',
-  main: 'flex',
-  sidebar: 'w-64 bg-zinc-900 border-r border-zinc-800 p-6',
-  content: 'flex-1 p-6',
+  main: 'flex flex-1',
+  sidebar: 'bg-zinc-900 border-r border-zinc-800 flex flex-col',
+  content: 'flex-1 p-6 overflow-auto',
   form: 'bg-zinc-900 rounded-lg border border-zinc-800 p-6 mb-6',
   formGroup: 'mb-4',
   label: 'block text-sm font-medium text-zinc-300 mb-2',
@@ -33,5 +33,8 @@ export const ADMIN_STYLES = {
   statLabel: 'text-sm text-zinc-400',
   loading: 'flex items-center justify-center py-8',
   error: 'bg-red-900/20 border border-red-800 rounded-lg p-4 text-red-200',
-  success: 'bg-green-900/20 border border-green-800 rounded-lg p-4 text-green-200'
+  success: 'bg-green-900/20 border border-green-800 rounded-lg p-4 text-green-200',
+  tabContent: 'flex-1',
+  tabPanel: 'hidden',
+  tabPanelActive: 'block'
 }

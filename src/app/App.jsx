@@ -6,14 +6,12 @@
  */
 
 import { useEffect } from 'react'
-
-import PublicShayriView from './common/PublicShayriView'
-import GuestPostForm from './common/GuestPostForm'
+import AdminDashboard from '../components/AdminDashboard'
+import PublicShayriView from '../common/PublicShayriView'
+import GuestPostForm from '../common/GuestPostForm'
 import { useShayriData } from './hooks/useShayriData'
 import { useAuth } from './hooks/useAuth'
-import { AVAILABLE_CATEGORIES } from './data/shayriData'
-import AdminDashboard from './components/AdminDashboard'
-
+import { AVAILABLE_CATEGORIES } from '../data/shayriData'
 
 // ====================
 // MAIN COMPONENT
@@ -41,7 +39,6 @@ export default function App() {
     handleLike,
     handleAddShayri,
     handleDeleteShayri,
-    handleUpdateShayri,
     getLikeCount
   } = shayriData
   
@@ -77,11 +74,10 @@ export default function App() {
         isAuthenticated={isAuthenticated}
         categories={AVAILABLE_CATEGORIES}
         onAddPost={handleAddShayri}
-        onUpdatePost={handleUpdateShayri}
         onDeletePost={handleDeleteShayri}
         canDeletePosts={canDeletePosts}
       />
-    );
+    )
   }
 
   // Render public view with guest posting

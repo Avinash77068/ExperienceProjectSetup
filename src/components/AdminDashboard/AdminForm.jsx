@@ -14,7 +14,8 @@ export default function AdminForm({
   categories, 
   onInputChange, 
   onSubmit, 
-  onReset 
+  onReset,
+  isEditing = false 
 }) {
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -95,7 +96,7 @@ export default function AdminForm({
           className={ADMIN_STYLES.button}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Adding...' : 'Add Shayri'}
+          {isSubmitting ? (isEditing ? 'Updating...' : 'Adding...') : (isEditing ? 'Update Shayri' : 'Add Shayri')}
         </button>
         
         <button
@@ -104,7 +105,7 @@ export default function AdminForm({
           className={`${ADMIN_STYLES.button} bg-zinc-700 hover:bg-zinc-600`}
           disabled={isSubmitting}
         >
-          Reset
+          {isEditing ? 'Cancel' : 'Reset'}
         </button>
       </div>
     </form>
