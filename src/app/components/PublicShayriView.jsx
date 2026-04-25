@@ -128,6 +128,8 @@ const createEventHandlers = (callbacks) => {
   const handleUserAction = useCallback((action) => {
     if (action.action === 'admin') {
       window.location.hash = '#admin'
+    } else if (action.action === 'guest') {
+      window.location.hash = '#guest'
     }
     if (onUserAction) onUserAction(action)
   }, [onUserAction])
@@ -146,7 +148,7 @@ const createEventHandlers = (callbacks) => {
 // ====================
 // SUB-COMPONENTS
 // ====================
-const PoetryHeader = ({ onNavigationClick, onUserAction }) => {
+const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost }) => {
   const navigationItems = [
     { label: 'Home', path: '/', icon: FiHome },
     { label: 'Categories', path: '/categories', icon: FiFilter },
@@ -154,9 +156,11 @@ const PoetryHeader = ({ onNavigationClick, onUserAction }) => {
   ]
   
   const user = {
-    name: 'Guest',
+    name: isGuestMode ? 'Guest Mode' : 'Guest',
     actions: [
-      { label: 'Admin Panel', icon: FiSettings, action: 'admin' }
+      { label: 'Admin Panel', icon: FiSettings, action: 'admin' },
+      { label: 'Guest Mode', icon: FiFilter, action: 'guest' },
+      ...(canPost ? [{ label: 'Post Shayri', icon: FiFilter, action: 'post' }] : [])
     ]
   }
   
@@ -277,7 +281,9 @@ export default function PublicShayriView({
   totalPages,
   onPageChange,
   totalItems,
-  itemsPerPage
+  itemsPerPage,
+  isGuestMode = false,
+  canPost = false
 }) {
   // State management
   const poetryState = usePublicPoetryState(selectedCategory, searchTerm)
@@ -306,6 +312,8 @@ export default function PublicShayriView({
       <PoetryHeader 
         onNavigationClick={handleNavigation}
         onUserAction={handleUserAction}
+        isGuestMode={isGuestMode}
+        canPost={canPost}
       />
       
       <main className={VIEW_STYLES.container}>

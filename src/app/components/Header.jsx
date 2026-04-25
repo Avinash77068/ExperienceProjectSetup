@@ -169,8 +169,9 @@ const UserSection = ({
 }) => {
   const userInitial = user?.name?.charAt(0).toUpperCase() || 'G'
   
+  // Always show user section even if user is null
   return (
-    <div className={HEADER_STYLES.userSection}>
+    <div className={HEADER_STYLES.userSection} data-user-dropdown>
       <button
         onClick={onToggleDropdown}
         className={HEADER_STYLES.userButton}
@@ -315,16 +316,14 @@ export default function Header({
             />
             
             <div className="flex items-center space-x-4">
-              {user && (
-                <UserSection
-                  user={user}
-                  onUserAction={handleUserAction}
-                  isDropdownOpen={isUserDropdownOpen}
-                  onToggleDropdown={toggleUserDropdown}
-                  onCloseDropdown={closeUserDropdown}
-                  data-user-dropdown
-                />
-              )}
+              <UserSection
+                user={user}
+                onUserAction={handleUserAction}
+                isDropdownOpen={isUserDropdownOpen}
+                onToggleDropdown={toggleUserDropdown}
+                onCloseDropdown={closeUserDropdown}
+                data-user-dropdown
+              />
               
               <MobileMenuButton
                 isOpen={isMobileMenuOpen}
