@@ -42,7 +42,7 @@ const VIEW_CONFIG = {
 // ====================
 const VIEW_STYLES = {
   container: 'min-h-screen bg-[#0a0a0f] px-4 py-8 text-zinc-100',
-  wrapper: 'mx-auto max-w-7xl',
+  wrapper: 'mx-auto max-w-7xl mt-20',
   headerSection: 'mb-8',
   controlsSection: 'mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between',
   categoryFilters: 'flex flex-wrap gap-2',
