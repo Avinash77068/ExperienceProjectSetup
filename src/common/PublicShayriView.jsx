@@ -182,6 +182,78 @@ const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost })
   )
 }
 
+const SEOContent = () => (
+  <section className="max-w-4xl mx-auto px-6 py-8 text-zinc-300">
+    <h1 className="text-4xl font-bold text-white mb-6 text-center">
+      AllShayri - हिंदी उर्दू शायरी का बेहतरीन संग्रह
+    </h1>
+    
+    <div className="prose prose-invert max-w-none mb-8">
+      <p className="text-lg leading-relaxed mb-4">
+        AllShayri.info पर आपका स्वागत है। यहाँ मिलेगी हर जज़्बात की शायरी —
+        मोहब्बत की, दर्द की, दोस्ती की और ज़िंदगी की।
+        हमारे पास हज़ारों बेहतरीन हिंदी और उर्दू शायरियों का संग्रह है।
+      </p>
+      
+      <p className="text-lg leading-relaxed mb-6">
+        चाहे आप <strong>Love Shayari</strong> ढूंढ रहे हों अपने प्यार के लिए,
+        या <strong>Sad Shayari</strong> अपने दर्द को बयां करने के लिए —
+        AllShayri.info पर सब कुछ मिलेगा। रोज़ नई शायरियाँ अपडेट होती हैं।
+      </p>
+    </div>
+    
+    <nav aria-label="Shayri Categories" className="mb-8">
+      <h2 className="text-2xl font-bold text-white mb-4">शायरी की श्रेणियाँ</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <a href="#love" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-amber-400">❤️</span> Love Shayari
+        </a>
+        <a href="#sad" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-blue-400">💔</span> Sad Shayri
+        </a>
+        <a href="#dard" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-purple-400">😢</span> Dard Shayri
+        </a>
+        <a href="#dosti" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-green-400">🤝</span> Dosti Shayri
+        </a>
+        <a href="#mohabbat" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-red-400">💕</span> Mohabbat Shayri
+        </a>
+        <a href="#attitude" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-amber-400">😎</span> Attitude Shayri
+        </a>
+        <a href="#bewafa" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-gray-400">😞</span> Bewafa Shayri
+        </a>
+        <a href="#2line" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-cyan-400">📝</span> 2 Line Shayri
+        </a>
+        <a href="#romantic" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-pink-400">🌹</span> Romantic Shayri
+        </a>
+        <a href="#ishq" className="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors text-center">
+          <span className="text-red-500">🔥</span> Ishq Shayari
+        </a>
+      </div>
+    </nav>
+    
+    <div className="text-center">
+      <p className="text-sm text-zinc-400 mb-4">
+        हमारी शायरी collection में 10,000+ shayri हैं और हर दिन नई शायरियाँ जुड़ती हैं।
+      </p>
+      <a 
+        href="https://github.com/Avinash77068/ExperienceProjectSetup" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-zinc-900 rounded-lg hover:bg-amber-400 transition-colors font-medium"
+      >
+        <span>⭐</span> GitHub पर Star करें
+      </a>
+    </div>
+  </section>
+)
+
 const PoetryFilters = ({ 
   categories, 
   selectedCategory, 
@@ -325,6 +397,11 @@ export default function PublicShayriView({
       
       <main className={VIEW_STYLES.container}>
         <div className={VIEW_STYLES.wrapper}>
+          {/* SEO Content - Only show on home page when no filters are applied */}
+          {selectedCategory === 'All' && !searchTerm && (
+            <SEOContent />
+          )}
+          
           <PoetryFilters
             categories={categories}
             selectedCategory={selectedCategory}
