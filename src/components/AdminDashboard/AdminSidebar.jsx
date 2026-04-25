@@ -120,7 +120,7 @@ export default function AdminSidebar({
 
       {/* Statistics Summary */}
       {!isCollapsed && (
-        <div className="p-4 border-t border-zinc-800">
+        <div className="p-4 border-t absolute bottom-16 left-0 w-auto border-zinc-800">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export default function AdminSidebar({
       )}
 
       {/* Logout */}
-      <div className="p-4 border-t border-zinc-800">
+      <div className="p-4 border-t absolute bottom-0 border-zinc-800">
         <button
           onClick={onLogout}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-900/20 text-red-400 transition-colors"
