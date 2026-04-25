@@ -7,7 +7,7 @@
 
 import { useState, useCallback } from 'react'
 import { Plus, Send, X } from 'lucide-react'
-import { POETRY_CATEGORIES } from '../data/shayriData'
+import { POETRY_CATEGORIES, CATEGORY_DISPLAY_NAMES } from '../data/entities/poetryEntities'
 
 // ====================
 // COMPONENT CONFIGURATION
@@ -176,10 +176,13 @@ export default function GuestPostForm({ onPostSubmit, isPopup = false }) {
               onChange={(e) => handleInputChange('category', e.target.value)}
               className={FORM_STYLES.select}
             >
-              <option value={POETRY_CATEGORIES.ROMANTIC}>Ishq</option>
-              <option value={POETRY_CATEGORIES.HEARTBREAK}>Dard</option>
-              <option value={POETRY_CATEGORIES.LIFE}>Zindagi</option>
-              <option value={POETRY_CATEGORIES.MOTIVATIONAL}>Hausla</option>
+              {Object.values(POETRY_CATEGORIES)
+                .filter((cat) => cat !== POETRY_CATEGORIES.ALL)
+                .map((category) => (
+                  <option key={category} value={category}>
+                    {CATEGORY_DISPLAY_NAMES[category]}
+                  </option>
+                ))}
             </select>
           </div>
 
