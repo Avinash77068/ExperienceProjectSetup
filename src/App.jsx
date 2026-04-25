@@ -105,11 +105,9 @@ export default function App() {
         itemsPerPage={itemsPerPage}
         isGuestMode={isGuestMode}
         canPost={canPost}
+        onPostSubmit={handleGuestPostSubmit}
       />
       
-      {canPost && (
-        <GuestPostForm onPostSubmit={handleGuestPostSubmit} />
-      )}
-    </>
+      </>
   )
 }

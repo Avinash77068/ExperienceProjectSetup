@@ -30,7 +30,7 @@ const FORM_CONFIG = {
 // STYLES CONSTANTS
 // ====================
 const FORM_STYLES = {
-  container: 'fixed bottom-4 right-4 z-40 max-w-sm',
+  container: 'w-full',
   toggleButton: 'bg-amber-300 text-zinc-900 rounded-full p-4 shadow-lg hover:bg-amber-400 transition-colors',
   formContainer: 'bg-zinc-900 border border-amber-300/20 rounded-lg shadow-xl p-6 mb-4',
   header: 'flex items-center justify-between mb-4',
@@ -77,7 +77,7 @@ const validateShayriForm = (formData) => {
 // ====================
 // MAIN COMPONENT
 // ====================
-export default function GuestPostForm({ onPostSubmit }) {
+export default function GuestPostForm({ onPostSubmit, isPopup = false }) {
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState({
     text: '',
@@ -125,7 +125,9 @@ export default function GuestPostForm({ onPostSubmit }) {
         image: ''
       })
       setErrors([])
-      setIsOpen(false)
+      if (!isPopup) {
+        setIsOpen(false)
+      }
       
     } catch (error) {
       console.error('Error submitting post:', error)
@@ -133,12 +135,95 @@ export default function GuestPostForm({ onPostSubmit }) {
     } finally {
       setIsSubmitting(false)
     }
-  }, [formData, onPostSubmit])
+  }, [formData, onPostSubmit, isPopup])
 
   const toggleForm = useCallback(() => {
     setIsOpen(prev => !prev)
   }, [])
 
+  // If it's popup mode, always show the form
+  if (isPopup) {
+    return (
+      <div className={FORM_STYLES.container}>
+        <form onSubmit={handleSubmit} className={FORM_STYLES.form}>
+          <div>
+            <textarea
+              value={formData.text}
+              onChange={(e) => handleInputChange('text', e.target.value)}
+              placeholder={FORM_CONFIG.PLACEHOLDERS.TEXT}
+              className={FORM_STYLES.textarea}
+              rows={4}
+              maxLength={FORM_CONFIG.VALIDATION.MAX_TEXT_LENGTH}
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              value={formData.author}
+              onChange={(e) => handleInputChange('author', e.target.value)}
+              placeholder={FORM_CONFIG.PLACEHOLDERS.AUTHOR}
+              className={FORM_STYLES.input}
+              maxLength={FORM_CONFIG.VALIDATION.MAX_AUTHOR_LENGTH}
+              required
+            />
+          </div>
+
+          <div>
+            <select
+              value={formData.category}
+              onChange={(e) => handleInputChange('category', e.target.value)}
+              className={FORM_STYLES.select}
+            >
+              <option value={POETRY_CATEGORIES.ROMANTIC}>Ishq</option>
+              <option value={POETRY_CATEGORIES.HEARTBREAK}>Dard</option>
+              <option value={POETRY_CATEGORIES.LIFE}>Zindagi</option>
+              <option value={POETRY_CATEGORIES.MOTIVATIONAL}>Hausla</option>
+            </select>
+          </div>
+
+          <div>
+            <input
+              type="url"
+              value={formData.image}
+              onChange={(e) => handleInputChange('image', e.target.value)}
+              placeholder={FORM_CONFIG.PLACEHOLDERS.IMAGE}
+              className={FORM_STYLES.input}
+            />
+          </div>
+
+          {errors.length > 0 && (
+            <div className={FORM_STYLES.error}>
+              {errors.map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className={FORM_STYLES.button}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <div className="w-4 h-4 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin" />
+                Posting...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                Post Shayri
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+    )
+  }
+
+  // Original floating button mode
   if (!isOpen) {
     return (
       <div className={FORM_STYLES.container}>

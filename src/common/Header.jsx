@@ -1,6 +1,7 @@
-import React from 'react'
-import { FiUser } from 'react-icons/fi'
-import { Menu, X, User, Settings, LogOut } from 'lucide-react'
+import React, { useState, useCallback, useMemo } from 'react'
+import { FiPlus } from 'react-icons/fi'
+import { Menu, User, X } from 'lucide-react'
+import GuestPostForm from './GuestPostForm'
 
 /**
  * Header Component - Enterprise Architecture
@@ -8,8 +9,6 @@ import { Menu, X, User, Settings, LogOut } from 'lucide-react'
  * @author Senior Development Team
  * @version 2.0.0
  */
-
-import { useState, useCallback, useMemo } from 'react'
 
 // ====================
 // COMPONENT CONFIGURATION
@@ -65,6 +64,7 @@ const HEADER_STYLES = {
 const useHeaderState = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
+  const [isGuestFormOpen, setIsGuestFormOpen] = useState(false)
   
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(prev => !prev)
@@ -82,13 +82,24 @@ const useHeaderState = () => {
     setIsUserDropdownOpen(false)
   }, [])
   
+  const toggleGuestForm = useCallback(() => {
+    setIsGuestFormOpen(prev => !prev)
+  }, [])
+  
+  const closeGuestForm = useCallback(() => {
+    setIsGuestFormOpen(false)
+  }, [])
+  
   return {
     isMobileMenuOpen,
     isUserDropdownOpen,
+    isGuestFormOpen,
     toggleMobileMenu,
     closeMobileMenu,
     toggleUserDropdown,
-    closeUserDropdown
+    closeUserDropdown,
+    toggleGuestForm,
+    closeGuestForm
   }
 }
 
@@ -278,10 +289,13 @@ export default function Header({
   const {
     isMobileMenuOpen,
     isUserDropdownOpen,
+    isGuestFormOpen,
     toggleMobileMenu,
     closeMobileMenu,
     toggleUserDropdown,
-    closeUserDropdown
+    closeUserDropdown,
+    toggleGuestForm,
+    closeGuestForm
   } = headerState
   
   // Event handlers
@@ -322,6 +336,18 @@ export default function Header({
             />
             
             <div className="flex items-center space-x-4">
+              {/* Add Shayri Button */}
+              {user?.actions?.some(action => action.action === 'post') && (
+                <button
+                  onClick={toggleGuestForm}
+                  className="flex items-center gap-2 rounded-lg bg-amber-300 text-zinc-900 px-4 py-2 text-sm font-medium hover:bg-amber-400 transition-colors"
+                  aria-label="Add new shayri"
+                >
+                  <FiPlus className="w-4 h-4" />
+                  <span className="hidden sm:inline">Add Shayri</span>
+                </button>
+              )}
+              
               <UserSection
                 user={user}
                 onUserAction={handleUserAction}
@@ -347,6 +373,35 @@ export default function Header({
           />
         </div>
       </header>
+      
+      {/* Guest Post Form Popup */}
+      {isGuestFormOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-zinc-900 rounded-2xl border border-amber-300/30 p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-amber-200">Add New Shayri</h2>
+              <button
+                onClick={closeGuestForm}
+                className="p-2 rounded-lg hover:bg-zinc-800 transition-colors"
+                aria-label="Close form"
+              >
+                <X className="w-5 h-5 text-zinc-400" />
+              </button>
+            </div>
+            
+            <GuestPostForm 
+              isPopup={true}
+              onPostSubmit={(data) => {
+                // Handle form submission
+                if (onUserAction) {
+                  onUserAction({ action: 'post', data })
+                }
+                closeGuestForm()
+              }}
+            />
+          </div>
+        </div>
+      )}
     </>
   )
 }

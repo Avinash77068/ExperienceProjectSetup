@@ -9,7 +9,7 @@ import { useState, useMemo, useCallback } from 'react'
 import ShayriCard from '../components/ShayriCard'
 import Header from './Header'
 import Pagination from './Pagination'
-import { FiHome, FiSettings, FiSearch, FiFilter } from 'react-icons/fi'
+import { FiHome, FiSettings, FiSearch, FiFilter, FiPlus } from 'react-icons/fi'
 import { AVAILABLE_CATEGORIES, PoetryRepository } from '../data/shayriData'
 
 // ====================
@@ -119,7 +119,7 @@ const processPoetryData = (categories, selectedCategory, searchTerm) => {
 // EVENT HANDLERS
 // ====================
 const createEventHandlers = (callbacks) => {
-  const { onNavigationClick, onUserAction, onPageChange } = callbacks
+  const { onNavigationClick, onUserAction, onPageChange, onPostSubmit } = callbacks
   
   const handleNavigation = useCallback((item) => {
     if (onNavigationClick) onNavigationClick(item)
@@ -130,9 +130,14 @@ const createEventHandlers = (callbacks) => {
       window.location.hash = '#admin'
     } else if (action.action === 'guest') {
       window.location.hash = '#guest'
+    } else if (action.action === 'post' && action.data) {
+      // Handle post submission from popup
+      if (onPostSubmit) {
+        onPostSubmit(action.data)
+      }
     }
     if (onUserAction) onUserAction(action)
-  }, [onUserAction])
+  }, [onUserAction, onPostSubmit])
   
   const handlePageChange = useCallback((page) => {
     if (onPageChange) onPageChange(page)
@@ -160,7 +165,7 @@ const PoetryHeader = ({ onNavigationClick, onUserAction, isGuestMode, canPost })
     actions: [
       { label: 'Admin Panel', icon: FiSettings, action: 'admin' },
       { label: 'Guest Mode', icon: FiFilter, action: 'guest' },
-      ...(canPost ? [{ label: 'Post Shayri', icon: FiFilter, action: 'post' }] : [])
+      ...(canPost ? [{ label: 'Post Shayri', icon: FiPlus, action: 'post' }] : [])
     ]
   }
   
@@ -283,7 +288,8 @@ export default function PublicShayriView({
   totalItems,
   itemsPerPage,
   isGuestMode = false,
-  canPost = false
+  canPost = false,
+  onPostSubmit
 }) {
   // State management
   const poetryState = usePublicPoetryState(selectedCategory, searchTerm)
@@ -295,7 +301,8 @@ export default function PublicShayriView({
   const { handleNavigation, handleUserAction, handlePageChange } = createEventHandlers({
     onNavigationClick: () => {},
     onUserAction: () => {},
-    onPageChange
+    onPageChange,
+    onPostSubmit: onPostSubmit || (() => {})
   })
   
   // Memoized handlers
