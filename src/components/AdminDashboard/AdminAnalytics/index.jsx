@@ -8,6 +8,7 @@
 import { useMemo } from 'react'
 import { ADMIN_STYLES } from '../styles'
 import { useShayriData } from '../../../hooks/useShayriData'
+import { UserRepository } from '../../../data/repositories/userData'
 
 // ====================
 // ANALYTICS COMPONENTS
@@ -27,6 +28,7 @@ export default function AdminAnalytics() {
     const shayriStats = shayriData.statistics
     const allShayris = shayriData.posts
     const allUsers = [] // Users will be extracted from posts
+    const userStats = UserRepository.getUserStats()
 
     // Engagement metrics
     const totalEngagement = allShayris.reduce((acc, shayri) => ({
